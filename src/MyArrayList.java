@@ -27,6 +27,10 @@ public class MyArrayList<T> implements MyList<T> {
         return (T) elements[index]; // downcasting
     }
 
+    public Object[] getRawArray() {
+        return elements;
+    }
+
     public void remove(int index){
         checkIndex(index);
         for (int i = index; i < length - 1; i++) {

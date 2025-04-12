@@ -1,49 +1,68 @@
 public class MyLinkedList<T> implements MyList<T> {
     private MyNode<T> head;
-    private int length;
+    private MyNode<T> tail;
+    private int size;
 
     public MyLinkedList() {
         head = null;
-        length = 0;
+        tail = null;
+        size = 0;
     }
 
-    @Override
     public void add(T item) {
         MyNode<T> newNode = new MyNode<>(item);
-        if(head == null){
+        if (head == null) {
             head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
         }
-        else {
-            MyNode<T> current = head;
-            while(current.next != null){
-                current = current.next;
-            }
-            current.next = newNode;
-        }
-        length++;
+        size++;
     }
 
-    @Override
-    public int size() {
-        return length;
-    }
-
-    @Override
-    public void remove(int index) {
-
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
     public T get(int index) {
+        checkIndex(index);
         MyNode<T> current = head;
-        for(int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
         return current.data;
+    }
+
+    public void remove(int index) {
+        checkIndex(index);
+        if (index == 0) {
+            head = head.next;
+            if (head != null) head.prev = null;
+            else tail = null;
+        } else {
+            MyNode<T> current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+            MyNode<T> prevNode = current.prev;
+            MyNode<T> nextNode = current.next;
+            if (prevNode != null) prevNode.next = nextNode;
+            if (nextNode != null) nextNode.prev = prevNode;
+            if (current == tail) tail = prevNode;
+        }
+        size--;
+    }
+
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
     }
 }
