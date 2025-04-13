@@ -13,9 +13,9 @@ This Java project implements core data structures **from scratch**, without usin
 ---
 
 ## ⚙️ Technologies Used
-- Java (JDK 17 or higher)
+- Java
 - No external libraries
-- IDE: IntelliJ IDEA (recommended)
+- IDE: IntelliJ IDEA
 - Version Control: Git & GitHub
 
 ---
